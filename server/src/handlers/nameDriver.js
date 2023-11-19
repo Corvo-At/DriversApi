@@ -1,4 +1,4 @@
-const { nameDriverApi, nameDriverDB } = require("../controllers/nameDriver");
+const getDriverByName = require("../controllers/nameDriver");
 
 const driverDetailByName = async (req, res) => {
   try {
@@ -9,10 +9,10 @@ const driverDetailByName = async (req, res) => {
       return res.status(400).json({ message: "Name parameter is required" });
     }
 
-    const apiDriverDetail = await nameDriverApi(name);
-    const DBDriverDetail = await nameDriverDB(name);
+    //const apiDriverDetail = await nameDriverApi(name);
+    const DBDriverDetail = await getDriverByName(name);
 
-    const result = [...apiDriverDetail, ...DBDriverDetail].slice(0, 15);
+    const result = DBDriverDetail;
 
     if (result.length === 0) {
       return res
